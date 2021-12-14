@@ -31,9 +31,13 @@ def departure_view(request, departure: str):
                                                       'from_city': data.departures.get(departure),
                                                       'tour_count': len(departure_filter(data.tours, departure)),
                                                       'min_price': min([tour.get('price') for key, tour in
-                                                                    departure_filter(data.tours, departure).items()]),
+                                                                        departure_filter(data.tours,
+                                                                                         departure).items()]),
                                                       'max_price': max([tour.get('price') for key, tour in
-                                                                    departure_filter(data.tours, departure).items()]),
+                                                                        departure_filter(data.tours,
+                                                                                         departure).items()]),
+                                                      'tour_word_ru': get_correct_tours_word(
+                                                          len(departure_filter(data.tours, departure))),
                                                       })
 
 
@@ -46,6 +50,21 @@ def departure_filter(input_data: dict, departure: str) -> dict:
     '''
     result = {key: val for key, val in input_data.items() if val.get('departure') == departure}
     return result
+
+
+def get_correct_tours_word(tours_number: int) -> str:
+    '''
+    Возвращает лексически верную форму слова "туры" в зависмости от их числа
+    :param tours_number:
+    :return:
+    '''
+    last_number = str(tours_number)[-1]
+    if last_number == '1':
+        return 'тур'
+    elif last_number in ('2', '3', '4'):
+        return 'тура'
+    else:
+        return 'туров'
 
 
 def tour_view(request, id: int):

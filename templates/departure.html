@@ -9,7 +9,7 @@
 
   <main class="container mt-3">
     <h1 class="display-5 mt-4">Летим {{ from_city }}</h1>
-    <p class="mb-4">Найдено {{ tour_count }} туров, от {{ min_price }} до {{ max_price }} и от 4 ночей до 15 ночей</p>
+    <p class="mb-4">Найдено {{ tour_count }} {{ tour_word_ru }}, от {{ min_price }} до {{ max_price }} и от 4 ночей до 15 ночей</p>
     <!-- CARDS -->
     <div class="row mt-5">
         {% for key, tour in tours.items %}
